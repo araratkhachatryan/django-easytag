@@ -39,7 +39,7 @@ class EasyTag(Node):
                 params.pop(params.index(param))
 
         bits = token.split_contents()[1:]
-        args, kwargs = parse_bits(parser, bits, params, varargs, varkw, defaults, None, name)
+        args, kwargs = parse_bits(parser, bits, params, varargs, varkw, defaults, [], [], None, name)
         kwargs.update(zip(params, args))
         return partial(wrapped, **kwargs)
 
@@ -113,6 +113,6 @@ class EasyTag(Node):
             if nodelist is not None:
                 kwargs['nodelist'] = nodelist
             content.append(handler(**kwargs))
-        return u"".join(map(unicode, content))
+        return u"".join(map(str, content))
 
 
