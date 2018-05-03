@@ -1,4 +1,4 @@
-from inspect import getargspec
+from inspect import getfullargspec
 from functools import partial, wraps
 
 from django.template import Node
@@ -29,7 +29,7 @@ class EasyTag(Node):
         Returns a wrapped partial of ``handler`` with the arguments supplied by the calling
         template.  Errors will bubble up for invalid or missing arguments to the handler.
         """
-        params, varargs, varkw, defaults = getargspec(handler)
+        params, varargs, varkw, defaults, _, _, _ = getfullargspec(handler)
         wrapped = cls.wrap_handler(handler)
         params.pop(0)  # removes inspected 'self' from required tag arguments
 
